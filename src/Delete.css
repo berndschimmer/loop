@@ -1,0 +1,10 @@
+.delete {
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
