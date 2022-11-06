@@ -8,7 +8,14 @@ const useAudio = (url, record, onDelete) => {
   const [audio] = useState(new Audio(url));
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => setPlaying(!playing);
+  const playSound = () => {
+    audio.play();
+    setPlaying(!playing);
+  };
+  const pauseSound = () => {
+    audio.pause();
+    setPlaying(!playing);
+  };
 
   const deleteRecording = () => {
     localStorage.removeItem(record);
@@ -26,18 +33,29 @@ const useAudio = (url, record, onDelete) => {
     };
   }, []);
 
-  return [playing, toggle, deleteRecording];
+  return [playing, playSound, pauseSound, deleteRecording];
 };
 
 const Player = ({ url, record, onDelete }) => {
-  const [playing, toggle, deleteRecording] = useAudio(url, record, onDelete);
+  const [playing, playSound, pauseSound, deleteRecording] = useAudio(
+    url,
+    record,
+    onDelete
+  );
 
   return (
     <div>
       <div>
-        <button className="button" onClick={toggle}>
-          {playing ? <IoPause /> : <IoPlay />}
-        </button>
+        {playing && (
+          <button className="button" onClick={pauseSound}>
+            <IoPause />
+          </button>
+        )}
+        {!playing && (
+          <button className="button" onClick={playSound}>
+            <IoPlay />
+          </button>
+        )}
       </div>
       <div className="delete">
         <button className="delete" onClick={deleteRecording}>
