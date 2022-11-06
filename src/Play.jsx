@@ -23,10 +23,6 @@ const useAudio = (url, record, onDelete) => {
   };
 
   useEffect(() => {
-    playing ? audio.play() : audio.pause();
-  }, [playing]);
-
-  useEffect(() => {
     audio.addEventListener("ended", () => setPlaying(false));
     return () => {
       audio.removeEventListener("ended", () => setPlaying(false));
